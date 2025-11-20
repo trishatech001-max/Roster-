@@ -3,182 +3,147 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Access Panel Portal</title>
+<title>মেট্রো নিটিং এন্ড ডাইং মিলস (ফ্যাক্টরী-২)</title>
+
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-
-    *{box-sizing:border-box;margin:0;padding:0;font-family:'Roboto', sans-serif;}
-
     body{
-        height:100vh;
+        margin:0;
+        font-family:Arial, sans-serif;
+        background:#f5f5f5;
+        text-align:center;
+    }
+
+    /* হেডার */
+    .header{
+        padding:20px;
+        background:white;
+        border-bottom:2px solid #ddd;
+    }
+
+    .title{
+        font-size:30px;
+        font-weight:bold;
+        white-space:nowrap;
+    }
+
+    .address{
+        font-size:18px;
+        margin-top:5px;
+    }
+
+    .roster-text{
+        font-size:22px;
+        font-weight:bold;
+        color:#0066ff;
+        margin-top:10px;
+    }
+
+    /* তারিখ অ্যানিমেশন */
+    .date-line{
+        font-size:20px;
+        margin-top:15px;
+        animation: fade 2s infinite alternate;
+    }
+
+    @keyframes fade{
+        0%{opacity:0.3;}
+        100%{opacity:1;}
+    }
+
+    /* সুন্দর বাটন ডিজাইন */
+    .beauty-buttons{
+        margin-top:35px;
         display:flex;
         justify-content:center;
-        align-items:center;
-        background:linear-gradient(135deg,#0b63d6,#00c3ff);
-        overflow:hidden;
+        gap:15px;
+        flex-wrap:wrap;
     }
 
-    body::before{
-        content:'';
-        position:absolute;
-        width:100%;
-        height:100%;
-        background:url('https://images.unsplash.com/photo-1605902711622-cfb43c443d49?auto=format&fit=crop&w=1470&q=80') no-repeat center center/cover;
-        filter:blur(10px) brightness(0.6);
-        z-index:0;
-    }
-
-    .panel{
-        position:relative;
-        z-index:1;
-        background:rgba(255,255,255,0.15);
-        backdrop-filter:blur(20px);
-        border-radius:20px;
-        padding:50px 40px;
-        width:90%;
-        max-width:400px;
-        text-align:center;
-        box-shadow:0 0 25px rgba(0,0,0,0.4),0 0 60px rgba(0,195,255,0.2);
-        color:white;
-        animation:fadeIn 1s ease;
-    }
-
-    @keyframes fadeIn{
-        from{opacity:0;transform:translateY(-20px);}
-        to{opacity:1;transform:translateY(0);}
-    }
-
-    /* হেডার – এক লাইনে */
-    .panel h1{
-        font-size:22px;
-        font-weight:700;
-        margin-bottom:10px;
-        text-shadow:0 0 8px #00c3ff;
-        white-space: nowrap;
-        overflow-x: auto;
-    }
-
-    .panel p{
-        margin-bottom:25px;
-        font-size:16px;
-        color:rgba(255,255,255,0.85);
-        text-shadow:0 0 6px rgba(0,195,255,0.3);
-        white-space: nowrap;
-        overflow-x: auto;
-    }
-
-    input[type="password"]{
-        width:100%;
-        padding:14px 15px;
-        margin-bottom:20px;
-        border-radius:50px;
+    .beauty-btn{
+        padding:12px 25px;
+        font-size:18px;
+        font-weight:bold;
         border:none;
-        outline:none;
-        font-size:16px;
-        background:rgba(255,255,255,0.25);
+        border-radius:50px;
+        cursor:pointer;
+        background:linear-gradient(45deg, #0066ff, #00c3ff);
         color:white;
-        text-align:center;
+        box-shadow:0 6px 15px rgba(0,0,0,0.25);
         transition:0.3s;
-        box-shadow:0 4px 15px rgba(0,195,255,0.4);
+        min-width:100px;
     }
 
-    input[type="password"]::placeholder{
-        color:rgba(255,255,255,0.7);
+    .beauty-btn:hover{
+        transform:scale(1.07);
+        box-shadow:0 8px 20px rgba(0,0,0,0.35);
     }
 
-    input[type="password"]:focus{
-        background:rgba(255,255,255,0.4);
-        box-shadow:0 6px 20px rgba(0,195,255,0.6);
+    .beauty-btn:active{
+        transform:scale(0.95);
+        box-shadow:0 2px 5px rgba(0,0,0,0.3);
     }
 
-    .btn-login{
-        width:100%;
-        padding:14px;
-        border:none;
-        border-radius:50px;
+    /* নিচের পোস্টার লাইন */
+    .footer-line{
+        margin-top:40px;
         font-size:20px;
         font-weight:bold;
-        color:white;
-        background:linear-gradient(45deg,#00c3ff,#0b63d6);
-        cursor:pointer;
-        transition:0.3s;
-        box-shadow:0 6px 20px rgba(0,195,255,0.5),0 0 20px #00c3ff inset;
-    }
-
-    .btn-login:hover{
-        transform:translateY(-3px) scale(1.05);
-        box-shadow:0 10px 30px rgba(0,195,255,0.7),0 0 25px #00c3ff inset;
-    }
-
-    .btn-login:active{
-        transform:translateY(1px) scale(0.97);
-        box-shadow:0 4px 15px rgba(0,195,255,0.5),0 0 15px #00c3ff inset;
-    }
-
-    .error-msg{
-        color:#ff4d4d;
-        margin-bottom:10px;
-        height:20px;
-        font-weight:700;
-        opacity:0;
-        transition:0.3s;
-    }
-
-    @keyframes shake{
-        0%{transform:translateX(0);}
-        20%{transform:translateX(-10px);}
-        40%{transform:translateX(10px);}
-        60%{transform:translateX(-10px);}
-        80%{transform:translateX(10px);}
-        100%{transform:translateX(0);}
+        color:#444;
+        padding-bottom:40px;
     }
 
 </style>
-</head>
-<body>
-
-<div class="panel">
-    <h1>মেট্রো নিটিং এন্ড ডাইং মিলস ( ফ্যাক্টরী -২ )</h1>
-    <p>চারাবাগ, আশুলিয়া, সাভার ঢাকা ১৩৪১</p>
-
-    <div class="error-msg" id="errorMsg">Wrong Password!</div>
-
-    <input type="password" id="passwordInput" placeholder="Password">
-    <button class="btn-login" id="loginBtn">Login</button>
-</div>
 
 <script>
-const correctPassword = "@";
+// আজকের বাংলা তারিখ
+function banglaDate() {
+    const en = ["0","1","2","3","4","5","6","7","8","9"];
+    const bn = ["০","১","২","৩","৪","৫","৬","৭","৮","৯"];
 
-const input = document.getElementById("passwordInput");
-const btn = document.getElementById("loginBtn");
-const error = document.getElementById("errorMsg");
+    let today = new Date();
+    let d = today.getDate().toString();
+    let m = (today.getMonth()+1).toString();
+    let y = today.getFullYear().toString();
 
-btn.addEventListener("click", ()=>{
-    if(input.value === correctPassword){
-        window.location.href="home.html";
-    } else {
-        error.style.opacity = 1;
-        const panel = document.querySelector(".panel");
-        panel.style.animation = "shake 0.5s";
-        panel.style.animationIterationCount = "1";
-        let val = input.value.split("");
-        val = val.sort(()=>0.5-Math.random()).join("");
-        input.value = val;
-        setTimeout(()=>{
-            panel.style.animation = "";
-            input.value = "";
-            error.style.opacity = 0;
-        },600);
-    }
-});
+    d = d.replace(/[0-9]/g, e => bn[en.indexOf(e)]);
+    m = m.replace(/[0-9]/g, e => bn[en.indexOf(e)]);
+    y = y.replace(/[0-9]/g, e => bn[en.indexOf(e)]);
 
-input.addEventListener("keypress", function(e){
-    if(e.key === "Enter"){
-        btn.click();
-    }
-});
+    document.getElementById("date").innerHTML = "তারিখ: " + d + "/" + m + "/" + y;
+}
 </script>
+
+</head>
+<body onload="banglaDate()">
+
+<!-- হেডার -->
+<div class="header">
+    <div class="title">মেট্রো নিটিং এন্ড ডাইং মিলস ( ফ্যাক্টরী -২ )</div>
+    <div class="address">চারাবাগ, আশুলিয়া, সাভার ঢাকা ১৩৪১</div>
+    <div class="roster-text">সিকিউরিটি ডিউটি রোস্টার</div>
+    <div id="date" class="date-line"></div>
+</div>
+
+<!-- মাসের বাটন -->
+<div class="beauty-buttons">
+    <button class="beauty-btn" onclick="window.open('january.html','_blank')">জানুয়ারি</button>
+    <button class="beauty-btn" onclick="window.open('february.html','_blank')">ফেব্রুয়ারি</button>
+    <button class="beauty-btn" onclick="window.open('march.html','_blank')">মার্চ</button>
+    <button class="beauty-btn" onclick="window.open('april.html','_blank')">এপ্রিল</button>
+    <button class="beauty-btn" onclick="window.open('may.html','_blank')">মে</button>
+    <button class="beauty-btn" onclick="window.open('june.html','_blank')">জুন</button>
+    <button class="beauty-btn" onclick="window.open('july.html','_blank')">জুলাই</button>
+    <button class="beauty-btn" onclick="window.open('august.html','_blank')">আগস্ট</button>
+    <button class="beauty-btn" onclick="window.open('september.html','_blank')">সেপ্টেম্বর</button>
+    <button class="beauty-btn" onclick="window.open('october.html','_blank')">অক্টোবর</button>
+    <button class="beauty-btn" onclick="window.open('november.html','_blank')">নভেম্বর</button>
+    <button class="beauty-btn" onclick="window.open('december.html','_blank')">ডিসেম্বর</button>
+</div>
+
+<!-- ফুটার -->
+<div class="footer-line">
+    এটি সিকিউরিটি ডিপার্টমেন্টের অফিসিয়াল রোস্টার পেইজ
+</div>
 
 </body>
 </html>
