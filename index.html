@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="bn">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>মেট্রো নিটিং এন্ড ডাইং মিলস ( ফ্যাক্টরী -২)</title>
+
+  <style>
+    :root{
+      --blue: #0b63d6;
+      --dark: #0b1b2b;
+      --muted: #5a6b7a;
+      --bg: #f6f8fb;
+      --card: #ffffff;
+      --accent: #e6f0ff;
+    }
+
+    *{box-sizing:border-box}
+
+    body{
+      margin:0;
+      font-family: 'Noto Sans Bengali', Arial;
+      background:var(--bg);
+      color:var(--dark);
+      padding:24px;
+    }
+
+    .container{max-width:1100px;margin:0 auto}
+
+    .header{
+      display:flex;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      background:white;
+      padding:18px;
+      border-radius:14px;
+      box-shadow:0 6px 18px rgba(0,0,0,0.08);
+    }
+
+    .title{
+      font-size:32px;
+      font-weight:800;
+      margin:0;
+      white-space:nowrap;
+    }
+
+    .address{
+      color:var(--muted);
+      margin-top:4px;
+    }
+
+    .roster-badge{
+      padding:10px 16px;
+      background:var(--blue);
+      color:white;
+      font-weight:700;
+      border-radius:10px;
+      white-space:nowrap;
+    }
+
+    .date-pill{
+      margin-top:10px;
+      display:inline-block;
+      padding:8px 12px;
+      background:var(--card);
+      border-radius:8px;
+      box-shadow:0 6px 16px rgba(0,0,0,0.08);
+      font-weight:600;
+      animation:float 3s ease-in-out infinite;
+    }
+
+    @keyframes float{
+      0%{transform:translateY(0)}
+      50%{transform:translateY(-5px)}
+      100%{transform:translateY(0)}
+    }
+
+    .buttons{
+      margin-top:12px;
+      display:flex;
+      gap:10px
+    }
+
+    .btn{
+      padding:10px 14px;
+      border-radius:8px;
+      font-weight:700;
+      border:0;
+      cursor:pointer;
+      background:white;
+      box-shadow:0 6px 14px rgba(0,0,0,0.08);
+    }
+
+    .btn.primary{
+      background:var(--blue);
+      color:white;
+    }
+
+    .poster{
+      margin-top:20px;
+      padding:18px;
+      background:var(--accent);
+      border-radius:10px;
+      box-shadow:0 10px 25px rgba(0,0,0,0.05);
+      font-weight:700;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <div>
+      <h1 class="title">মেট্রো নিটিং এন্ড ডাইং মিলস ( ফ্যাক্টরী -২)</h1>
+      <div class="address">চারাবাগ, আশুলিয়া, সাভার, ঢাকা ১৩৪১</div>
+
+      <div class="date-pill" id="datePill">লোড হচ্ছে...</div>
+    </div>
+
+    <div>
+      <div class="roster-badge">সিকিউরিটি ডিউটি রোস্টার</div>
+
+      <div class="buttons">
+        <button class="btn primary" id="abcBtn">ABC Roster</button>
+        <button class="btn" id="abBtn">AB Roster</button>
+      </div>
+
+
+<script>
+function toBn(n){
+  return n.replace(/[0-9]/g, d => '০১২৩৪৫৬৭৮৯'[d]);
+}
+
+const months=[
+  'জানুয়ারী','ফেব্রুয়ারী','মার্চ','এপ্রিল','মে','জুন',
+  'জুলাই','আগস্ট','সেপ্টেম্বর','অক্টোবর','নভেম্বর','ডিসেম্বর'
+];
+
+function updateDate(){
+  let d=new Date();
+  let day = toBn(String(d.getDate()));
+  let month = months[d.getMonth()];
+  let year = toBn(String(d.getFullYear()));
+  document.getElementById('datePill').innerText = day+' '+month+' '+year+' সাল';
+}
+updateDate();
+
+function openRoster(name){
+  let win = window.open('', '_blank');
+  win.document.write(`
+    <h2>${name}</h2>
+    <p>নমুনা রোস্টার</p>
+  `);
+}
+
+document.getElementById('abcBtn').onclick = () => openRoster('ABC Roster');
+document.getElementById('abBtn').onclick = () => openRoster('AB Roster');
+</script>
+
+</body>
+</html>
