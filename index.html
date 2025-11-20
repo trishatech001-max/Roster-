@@ -1,162 +1,138 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="bn">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>মেট্রো নিটিং এন্ড ডাইং মিলস ( ফ্যাক্টরী -২)</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>মেট্রো নিটিং এন্ড ডাইং মিলস (ফ্যাক্টরী-২)</title>
 
-  <style>
-    :root{
-      --blue: #0b63d6;
-      --dark: #0b1b2b;
-      --muted: #5a6b7a;
-      --bg: #f6f8fb;
-      --card: #ffffff;
-      --accent: #e6f0ff;
-    }
-
-    *{box-sizing:border-box}
-
+<style>
     body{
-      margin:0;
-      font-family: 'Noto Sans Bengali', Arial;
-      background:var(--bg);
-      color:var(--dark);
-      padding:24px;
+        margin:0;
+        font-family:Arial, sans-serif;
+        background:#f5f5f5;
+        text-align:center;
     }
 
-    .container{max-width:1100px;margin:0 auto}
-
+    /* হেডার */
     .header{
-      display:flex;
-      justify-content:space-between;
-      flex-wrap:wrap;
-      background:white;
-      padding:18px;
-      border-radius:14px;
-      box-shadow:0 6px 18px rgba(0,0,0,0.08);
+        padding:20px;
+        background:white;
+        border-bottom:2px solid #ddd;
     }
 
     .title{
-      font-size:32px;
-      font-weight:800;
-      margin:0;
-      white-space:nowrap;
+        font-size:30px;
+        font-weight:bold;
+        white-space:nowrap;
     }
 
     .address{
-      color:var(--muted);
-      margin-top:4px;
+        font-size:18px;
+        margin-top:5px;
     }
 
-    .roster-badge{
-      padding:10px 16px;
-      background:var(--blue);
-      color:white;
-      font-weight:700;
-      border-radius:10px;
-      white-space:nowrap;
+    .roster-text{
+        font-size:22px;
+        font-weight:bold;
+        color:#0066ff;
+        margin-top:10px;
     }
 
-    .date-pill{
-      margin-top:10px;
-      display:inline-block;
-      padding:8px 12px;
-      background:var(--card);
-      border-radius:8px;
-      box-shadow:0 6px 16px rgba(0,0,0,0.08);
-      font-weight:600;
-      animation:float 3s ease-in-out infinite;
+    /* তারিখ অ্যানিমেশন */
+    .date-line{
+        font-size:20px;
+        margin-top:15px;
+        animation: fade 2s infinite alternate;
     }
 
-    @keyframes float{
-      0%{transform:translateY(0)}
-      50%{transform:translateY(-5px)}
-      100%{transform:translateY(0)}
+    @keyframes fade{
+        0%{opacity:0.3;}
+        100%{opacity:1;}
     }
 
-    .buttons{
-      margin-top:12px;
-      display:flex;
-      gap:10px
+    /* সুন্দর বাটন ডিজাইন */
+    .beauty-buttons{
+        margin-top:35px;
+        display:flex;
+        justify-content:center;
+        gap:20px;
+        flex-wrap:wrap;
     }
 
-    .btn{
-      padding:10px 14px;
-      border-radius:8px;
-      font-weight:700;
-      border:0;
-      cursor:pointer;
-      background:white;
-      box-shadow:0 6px 14px rgba(0,0,0,0.08);
+    .beauty-btn{
+        padding:15px 35px;
+        font-size:20px;
+        font-weight:bold;
+        border:none;
+        border-radius:50px;
+        cursor:pointer;
+        background:linear-gradient(45deg, #0066ff, #00c3ff);
+        color:white;
+        box-shadow:0 6px 15px rgba(0,0,0,0.25);
+        transition:0.3s;
     }
 
-    .btn.primary{
-      background:var(--blue);
-      color:white;
+    .beauty-btn:hover{
+        transform:scale(1.07);
+        box-shadow:0 8px 20px rgba(0,0,0,0.35);
     }
 
-    .poster{
-      margin-top:20px;
-      padding:18px;
-      background:var(--accent);
-      border-radius:10px;
-      box-shadow:0 10px 25px rgba(0,0,0,0.05);
-      font-weight:700;
+    .beauty-btn:active{
+        transform:scale(0.95);
+        box-shadow:0 2px 5px rgba(0,0,0,0.3);
     }
-  </style>
-</head>
-<body>
 
-<div class="container">
+    /* নিচের পোস্টার লাইন */
+    .footer-line{
+        margin-top:40px;
+        font-size:20px;
+        font-weight:bold;
+        color:#444;
+        padding-bottom:40px;
+    }
 
-  <div class="header">
-    <div>
-      <h1 class="title">মেট্রো নিটিং এন্ড ডাইং মিলস ( ফ্যাক্টরী -২)</h1>
-      <div class="address">চারাবাগ, আশুলিয়া, সাভার, ঢাকা ১৩৪১</div>
-
-      <div class="date-pill" id="datePill">লোড হচ্ছে...</div>
-    </div>
-
-    <div>
-      <div class="roster-badge">সিকিউরিটি ডিউটি রোস্টার</div>
-
-      <div class="buttons">
-        <button class="btn primary" id="abcBtn">ABC Roster</button>
-        <button class="btn" id="abBtn">AB Roster</button>
-      </div>
-
+</style>
 
 <script>
-function toBn(n){
-  return n.replace(/[0-9]/g, d => '০১২৩৪৫৬৭৮৯'[d]);
+// আজকের বাংলা তারিখ
+function banglaDate() {
+    const en = ["0","1","2","3","4","5","6","7","8","9"];
+    const bn = ["০","১","২","৩","৪","৫","৬","৭","৮","৯"];
+
+    let today = new Date();
+    let d = today.getDate().toString();
+    let m = (today.getMonth()+1).toString();
+    let y = today.getFullYear().toString();
+
+    d = d.replace(/[0-9]/g, e => bn[en.indexOf(e)]);
+    m = m.replace(/[0-9]/g, e => bn[en.indexOf(e)]);
+    y = y.replace(/[0-9]/g, e => bn[en.indexOf(e)]);
+
+    document.getElementById("date").innerHTML = "তারিখ: " + d + "/" + m + "/" + y;
 }
-
-const months=[
-  'জানুয়ারী','ফেব্রুয়ারী','মার্চ','এপ্রিল','মে','জুন',
-  'জুলাই','আগস্ট','সেপ্টেম্বর','অক্টোবর','নভেম্বর','ডিসেম্বর'
-];
-
-function updateDate(){
-  let d=new Date();
-  let day = toBn(String(d.getDate()));
-  let month = months[d.getMonth()];
-  let year = toBn(String(d.getFullYear()));
-  document.getElementById('datePill').innerText = day+' '+month+' '+year+' সাল';
-}
-updateDate();
-
-function openRoster(name){
-  let win = window.open('', '_blank');
-  win.document.write(`
-    <h2>${name}</h2>
-    <p>নমুনা রোস্টার</p>
-  `);
-}
-
-document.getElementById('abcBtn').onclick = () => openRoster('ABC Roster');
-document.getElementById('abBtn').onclick = () => openRoster('AB Roster');
 </script>
+
+</head>
+<body onload="banglaDate()">
+
+<!-- হেডার -->
+<div class="header">
+    <div class="title">মেট্রো নিটিং এন্ড ডাইং মিলস ( ফ্যাক্টরী -২ )</div>
+    <div class="address">চারাবাগ, আশুলিয়া, সাভার ঢাকা ১৩৪১</div>
+    <div class="roster-text">সিকিউরিটি ডিউটি রোস্টার</div>
+    <div id="date" class="date-line"></div>
+</div>
+
+<!-- বাটন -->
+<div class="beauty-buttons">
+    <button class="beauty-btn" onclick="window.open('abc.html','_blank')">ABC Roster</button>
+    <button class="beauty-btn" onclick="window.open('ab.html','_blank')">AB Roster</button>
+</div>
+
+<!-- ফুটার -->
+<div class="footer-line">
+    এটি সিকিউরিটি ডিপার্টমেন্টের অফিসিয়াল রোস্টার পেইজ
+</div>
 
 </body>
 </html>
